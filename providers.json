@@ -1,0 +1,13 @@
+[
+  {
+    "id": 13,
+    "type": "registered",
+    "name": "Helping Hands Raipur",
+    "category": "Food Support",
+    "location": "Raipur",
+    "budget": "Free",
+    "language": "Hindi",
+    "description": "Community food support for people who need assistance.",
+    "contact": "mailto:demo@example.com"
+  }
+]

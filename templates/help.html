@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I Need Help – WellVia</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="nav-logo">Well<span class="dot">Via</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/help">I Need Help</a></li>
+        <li><a href="/want-help">I Want to Help</a></li>
+        <li><a href="/providers">Providers</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="container">
+      <h1>🙋 I Need Help</h1>
+      <p>Tell us what you're looking for and we'll find the best matches for you.</p>
+    </div>
+  </div>
+
+  <!-- FORM SECTION -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Show error messages if form validation fails -->
+      {% if errors %}
+        <div class="alert alert-danger" style="max-width:620px; margin: 0 auto 1.5rem;">
+          <strong>Please fix the following:</strong>
+          <ul>
+            {% for error in errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <div class="form-card">
+        <h2 class="mb-2">Find Support Near You</h2>
+        <p class="mb-2">
+          Fill in your details below. The more information you provide, the better your matches will be.
+        </p>
+
+        <!-- data-validate tells our JavaScript to check this form before submission -->
+        <form action="/results" method="POST" data-validate>
+
+          <!-- Support Category -->
+          <div class="form-group">
+            <label for="category">What kind of support do you need? <span style="color:#dc2626">*</span></label>
+            <select name="category" id="category" required>
+              <option value="">-- Select a category --</option>
+              <option value="Healthcare">🏥 Healthcare</option>
+              <option value="Elder Care">👴 Elder Care</option>
+              <option value="Disability Support">♿ Disability Support</option>
+              <option value="Mental Wellness">🧠 Mental Wellness</option>
+              <option value="Food Support">🍱 Food Support</option>
+              <option value="Community Support">🌍 Community Support</option>
+            </select>
+          </div>
+
+          <!-- Location -->
+          <div class="form-group">
+            <label for="location">Your City / Location <span style="color:#dc2626">*</span></label>
+            <input
+              type="text"
+              name="location"
+              id="location"
+              placeholder="e.g. Delhi, Mumbai, Bangalore..."
+              required
+            />
+            <p class="form-hint">Enter the name of your city. We'll find providers near you.</p>
+          </div>
+
+          <!-- Budget -->
+          <div class="form-group">
+            <label for="budget">What is your budget preference?</label>
+            <select name="budget" id="budget">
+              <option value="Any">Any budget</option>
+              <option value="Free">Free (no cost)</option>
+              <option value="Low Cost">Low Cost (affordable)</option>
+              <option value="Moderate">Moderate</option>
+            </select>
+          </div>
+
+          <!-- Language -->
+          <div class="form-group">
+            <label for="language">Preferred language</label>
+            <select name="language" id="language">
+              <option value="Any">Any language</option>
+              <option value="English">English</option>
+              <option value="Hindi">Hindi</option>
+              <option value="Both">Both (Hindi & English)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+            🔍 Find Matching Providers
+          </button>
+        </form>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="disclaimer" style="max-width:620px; margin:2rem auto 0;">
+        <strong>⚠️ Demo Notice:</strong> All provider results shown are sample data for demonstration
+        purposes. Please verify all information before contacting any provider.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">WellVia</div>
+    <p>Connecting communities with the care they deserve.</p>
+    <p class="mt-1">
+      <a href="/">Home</a> &nbsp;|&nbsp;
+      <a href="/help">I Need Help</a> &nbsp;|&nbsp;
+      <a href="/want-help">I Want to Help</a> &nbsp;|&nbsp;
+      <a href="/providers">Providers</a>
+    </p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

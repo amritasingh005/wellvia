@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I Want to Help – WellVia</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="nav-logo">Well<span class="dot">Via</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/help">I Need Help</a></li>
+        <li><a href="/want-help">I Want to Help</a></li>
+        <li><a href="/providers">Providers</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="container">
+      <h1>🤝 I Want to Help</h1>
+      <p>Register your organisation or volunteer service to reach people in need.</p>
+    </div>
+  </div>
+
+  <!-- FORM SECTION -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Success message after submission -->
+      {% if success %}
+        <div class="alert alert-success auto-dismiss" style="max-width:620px; margin:0 auto 1.5rem;">
+          <strong>✅ Thank you, {{ provider_name }}!</strong><br/>
+          Your details have been submitted and added to the directory for this session.
+          (Note: In this demo, submissions are stored temporarily in memory and will reset when the server restarts.)
+        </div>
+      {% endif %}
+
+      <!-- Error messages -->
+      {% if errors %}
+        <div class="alert alert-danger" style="max-width:620px; margin:0 auto 1.5rem;">
+          <strong>Please fix the following:</strong>
+          <ul>
+            {% for error in errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <div class="form-card">
+        <h2 class="mb-2">Register as a Support Provider</h2>
+        <p class="mb-2">
+          Fill in your details below. Your listing will appear in the provider directory and
+          in matching results for people who need your type of support.
+        </p>
+
+        <form action="/submit-provider" method="POST" data-validate>
+
+          <!-- Name -->
+          <div class="form-group">
+            <label for="name">Organisation / Volunteer Name <span style="color:#dc2626">*</span></label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="e.g. Sunrise Elder Care, Asha Volunteers..."
+              required
+            />
+          </div>
+
+          <!-- Support Category -->
+          <div class="form-group">
+            <label for="category">Support Category <span style="color:#dc2626">*</span></label>
+            <select name="category" id="category" required>
+              <option value="">-- Select a category --</option>
+              <option value="Healthcare">🏥 Healthcare</option>
+              <option value="Elder Care">👴 Elder Care</option>
+              <option value="Disability Support">♿ Disability Support</option>
+              <option value="Mental Wellness">🧠 Mental Wellness</option>
+              <option value="Food Support">🍱 Food Support</option>
+              <option value="Community Support">🌍 Community Support</option>
+            </select>
+          </div>
+
+          <!-- Location -->
+          <div class="form-group">
+            <label for="location">City / Location <span style="color:#dc2626">*</span></label>
+            <input
+              type="text"
+              name="location"
+              id="location"
+              placeholder="e.g. Delhi, Mumbai, Pune..."
+              required
+            />
+          </div>
+
+          <!-- Budget -->
+          <div class="form-group">
+            <label for="budget">Cost / Budget Range</label>
+            <select name="budget" id="budget">
+              <option value="Any">Any / Not specified</option>
+              <option value="Free">Free</option>
+              <option value="Low Cost">Low Cost</option>
+              <option value="Moderate">Moderate</option>
+            </select>
+          </div>
+
+          <!-- Language -->
+          <div class="form-group">
+            <label for="language">Language(s) of Service</label>
+            <select name="language" id="language">
+              <option value="Any">Any / Not specified</option>
+              <option value="English">English</option>
+              <option value="Hindi">Hindi</option>
+              <option value="Both">Both (Hindi & English)</option>
+            </select>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="description">Description of Services</label>
+            <textarea
+              name="description"
+              id="description"
+              placeholder="Describe what support you offer, who you help, and how people can access your services..."
+              maxlength="500"
+            ></textarea>
+            <p class="form-hint" id="char-count">500 characters remaining</p>
+          </div>
+
+          <!-- Contact -->
+          <div class="form-group">
+            <label for="contact">Contact Information <span style="color:#dc2626">*</span></label>
+            <input
+              type="text"
+              name="contact"
+              id="contact"
+              placeholder="Email address, phone number, or website URL..."
+              required
+            />
+            <p class="form-hint">This will be shown to people seeking your support.</p>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+            ✅ Submit My Listing
+          </button>
+        </form>
+      </div>
+
+      <!-- Note -->
+      <div class="disclaimer" style="max-width:620px; margin:2rem auto 0;">
+        <strong>📝 Note:</strong> In this demo version, your submission is stored temporarily in memory.
+        It will be visible in the provider directory and search results during this session.
+        In a production version, submissions would be saved to a database.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">WellVia</div>
+    <p>Connecting communities with the care they deserve.</p>
+    <p class="mt-1">
+      <a href="/">Home</a> &nbsp;|&nbsp;
+      <a href="/help">I Need Help</a> &nbsp;|&nbsp;
+      <a href="/want-help">I Want to Help</a> &nbsp;|&nbsp;
+      <a href="/providers">Providers</a>
+    </p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

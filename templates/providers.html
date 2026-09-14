@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Provider Directory – WellVia</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="nav-logo">Well<span class="dot">Via</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/help">I Need Help</a></li>
+        <li><a href="/want-help">I Want to Help</a></li>
+        <li><a href="/providers">Providers</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="container">
+      <h1>📋 Provider Directory</h1>
+      <p>Browse all available support providers on WellVia.</p>
+    </div>
+  </div>
+
+  <!-- PROVIDERS SECTION -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Disclaimer -->
+      <div class="disclaimer">
+        <strong>⚠️ Notice:</strong> Providers labelled <strong>Demo Provider</strong> are sample entries
+        for demonstration only. Providers labelled <strong>Registered Provider</strong> have been submitted
+        via the "I Want to Help" form. Always verify details before contacting any provider.
+      </div>
+
+      <!-- Stats bar -->
+      <div style="display:flex; align-items:center; justify-content:space-between; margin: 1.5rem 0 2rem; flex-wrap:wrap; gap:1rem;">
+        <p><strong>{{ providers|length }}</strong> provider{{ 's' if providers|length != 1 else '' }} listed</p>
+        <a href="/want-help" class="btn btn-primary">+ Register Your Service</a>
+      </div>
+
+      <!-- Provider cards -->
+      {% if providers %}
+        <div class="directory-grid">
+          {% for provider in providers %}
+            <div class="provider-card {% if provider.type == 'registered' %}provider-card-registered{% endif %}">
+              {% if provider.type == 'registered' %}
+                <span class="registered-label">✅ Registered Provider</span>
+              {% else %}
+                <span class="demo-label">📋 Demo Provider</span>
+              {% endif %}
+              <h3>{{ provider.name }}</h3>
+
+              <div class="provider-meta mt-1">
+                <span class="meta-tag">{{ provider.category }}</span>
+                <span class="meta-tag">📍 {{ provider.location }}</span>
+                <span class="meta-tag">💰 {{ provider.budget }}</span>
+                <span class="meta-tag">🗣️ {{ provider.language }}</span>
+              </div>
+
+              {% if provider.description %}
+                <p style="font-size:0.9rem; margin-top:0.75rem; color:#475569;">
+                  {{ provider.description }}
+                </p>
+              {% endif %}
+
+              <div class="contact-info mt-2">
+                <strong>📞 Contact:</strong> {{ provider.contact }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+      {% else %}
+        <div class="no-results">
+          <p style="font-size:3rem;">📂</p>
+          <h2>No providers listed yet</h2>
+          <p>Be the first to register your support service!</p>
+          <a href="/want-help" class="btn btn-primary mt-3">Register Now</a>
+        </div>
+      {% endif %}
+
+      <!-- Bottom CTA -->
+      <div class="text-center mt-4">
+        <p>Want personalised matches? Try our smart search.</p>
+        <a href="/help" class="btn btn-primary mt-2">🔍 Find Support</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">WellVia</div>
+    <p>Connecting communities with the care they deserve.</p>
+    <p class="mt-1">
+      <a href="/">Home</a> &nbsp;|&nbsp;
+      <a href="/help">I Need Help</a> &nbsp;|&nbsp;
+      <a href="/want-help">I Want to Help</a> &nbsp;|&nbsp;
+      <a href="/providers">Providers</a>
+    </p>
+    <p class="mt-2" style="font-size:0.8rem; opacity:0.6;">
+      This is a hackathon demo project. All data is sample data only.
+    </p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

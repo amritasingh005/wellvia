@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results – WellVia</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="nav-logo">Well<span class="dot">Via</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/help">I Need Help</a></li>
+        <li><a href="/want-help">I Want to Help</a></li>
+        <li><a href="/providers">Providers</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="container">
+      <h1>🔍 Your Matches</h1>
+      <p>
+        Showing results for <strong>{{ query.category }}</strong>
+        in <strong>{{ query.location }}</strong>
+        — Budget: <strong>{{ query.budget }}</strong>
+        — Language: <strong>{{ query.language }}</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- RESULTS SECTION -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Disclaimer -->
+      <div class="disclaimer">
+        <strong>⚠️ Demo Data:</strong> The providers shown below are <strong>sample/demo entries only</strong>.
+        They do not represent real organisations. Always verify details before contacting any provider.
+      </div>
+
+      {% if providers %}
+
+        <!-- Summary line -->
+        <div class="results-header mt-3">
+          <h2>{{ providers|length }} Provider{{ 's' if providers|length != 1 else '' }} Found</h2>
+          <p>Sorted by best match first. Score is weighted: Category 40% · Location 30% · Budget 20% · Language 10%.</p>
+
+          <!-- Warn if even the best result is a weak match -->
+          {% if providers[0].match_percent < 40 %}
+            <div class="alert alert-danger mt-2" style="max-width:680px; margin-left:auto; margin-right:auto;">
+              <strong>⚠️ No strong matches found.</strong>
+              The results below are partial matches only. Try broadening your search —
+              set Budget or Language to <em>Any</em>, or check the spelling of your city.
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Results grid -->
+        <div class="results-grid">
+          {% for provider in providers %}
+            <div class="result-card {% if loop.index == 1 %}top-match{% endif %}">
+
+              <!-- Provider type label -->
+              {% if provider.type == 'registered' %}
+                <span class="registered-label">✅ Registered Provider</span>
+              {% else %}
+                <span class="demo-label">📋 Demo Provider</span>
+              {% endif %}
+
+              <!-- Match badge — colour changes based on score -->
+              {% if provider.match_percent >= 75 %}
+                <span class="match-badge high">{{ provider.match_percent }}% Match</span>
+              {% elif provider.match_percent >= 50 %}
+                <span class="match-badge mid">{{ provider.match_percent }}% Match</span>
+              {% else %}
+                <span class="match-badge low">{{ provider.match_percent }}% Match</span>
+              {% endif %}
+
+              <h3>{{ provider.name }}</h3>
+
+              <!-- Category, location, budget, language tags -->
+              <div class="provider-meta">
+                <span class="meta-tag">{{ provider.category }}</span>
+                <span class="meta-tag">📍 {{ provider.location }}</span>
+                <span class="meta-tag">💰 {{ provider.budget }}</span>
+                <span class="meta-tag">🗣️ {{ provider.language }}</span>
+              </div>
+
+              <!-- Description -->
+              {% if provider.description %}
+                <p style="font-size:0.9rem; margin-top:0.5rem;">{{ provider.description }}</p>
+              {% endif %}
+
+              <!-- Match score breakdown — shows ✓ / ✗ for each criterion -->
+              {% if provider.breakdown %}
+                <div class="why-matched">
+                  <strong>Match breakdown:</strong>
+                  <ul class="breakdown-list">
+                    {% for item in provider.breakdown %}
+                      <li class="{{ 'matched' if item.matched else 'not-matched' }}">
+                        <span class="check-icon">{{ '✓' if item.matched else '✗' }}</span>
+                        <span class="criterion-label">{{ item.label }}</span>
+                        <span class="criterion-points">+{{ item.points }}%</span>
+                        <span class="criterion-note">{{ item.note }}</span>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                  <p class="breakdown-total">Final Match: <strong>{{ provider.match_percent }}%</strong></p>
+                </div>
+              {% endif %}
+
+              <!-- Contact info -->
+              <div class="contact-info">
+                <strong>📞 Contact:</strong> {{ provider.contact }}
+              </div>
+
+            </div>
+          {% endfor %}
+        </div>
+
+      {% else %}
+        <!-- No results found -->
+        <div class="no-results">
+          <p style="font-size:3rem;">😕</p>
+          <h2>No matches found</h2>
+          <p class="mt-1">
+            We couldn't find any providers matching your exact criteria.<br/>
+            Try broadening your search — for example, set Budget or Language to "Any".
+          </p>
+          <a href="/help" class="btn btn-primary mt-3">🔄 Try Again</a>
+        </div>
+      {% endif %}
+
+      <!-- Back button -->
+      <div class="text-center mt-4">
+        <a href="/help" class="btn btn-outline">← Change Search</a>
+        &nbsp;
+        <a href="/providers" class="btn btn-outline">Browse All Providers</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">WellVia</div>
+    <p>Connecting communities with the care they deserve.</p>
+    <p class="mt-1">
+      <a href="/">Home</a> &nbsp;|&nbsp;
+      <a href="/help">I Need Help</a> &nbsp;|&nbsp;
+      <a href="/want-help">I Want to Help</a> &nbsp;|&nbsp;
+      <a href="/providers">Providers</a>
+    </p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

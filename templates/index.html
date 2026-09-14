@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WellVia – Find the Right Support</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="nav-logo">Well<span class="dot">Via</span></a>
+
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/help">I Need Help</a></li>
+        <li><a href="/want-help">I Want to Help</a></li>
+        <li><a href="/providers">Providers</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO SECTION ===================== -->
+  <section class="hero">
+    <div class="container">
+      <h1>Welcome to WellVia</h1>
+      <p class="tagline">
+        Connecting people with the right healthcare, elder care, wellness,
+        and community support — simply and instantly.
+      </p>
+      <div class="hero-buttons">
+        <a href="/help" class="btn btn-white btn-lg">🙋 I Need Help</a>
+        <a href="/want-help" class="btn btn-outline btn-lg" style="color:#fff; border-color:#fff;">🤝 I Want to Help</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="section">
+    <div class="container">
+      <h2 class="text-center">How WellVia Works</h2>
+      <p class="text-center mt-1" style="max-width:560px; margin-left:auto; margin-right:auto;">
+        Three simple steps to connect you with the support you need.
+      </p>
+
+      <div class="how-grid mt-4">
+        <div class="how-card">
+          <div class="how-icon">📋</div>
+          <h3>1. Tell Us Your Needs</h3>
+          <p>Fill in a short form about the type of support, your location, budget, and language preference.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-icon">🔍</div>
+          <h3>2. Smart Matching</h3>
+          <p>Our matching system compares your needs with all available providers and scores each one.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-icon">📬</div>
+          <h3>3. Connect Directly</h3>
+          <p>View your best matches with contact details and reach out directly — no middleman needed.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-icon">🤝</div>
+          <h3>4. Give Support</h3>
+          <p>Are you an organisation or volunteer? Register to appear in the directory and reach people in need.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CATEGORIES ===================== -->
+  <section class="section section-alt">
+    <div class="container text-center">
+      <h2>Support Categories</h2>
+      <p class="mt-1">WellVia covers a wide range of essential support areas.</p>
+
+      <div class="categories-grid mt-3">
+        <div class="category-pill">🏥 Healthcare</div>
+        <div class="category-pill">👴 Elder Care</div>
+        <div class="category-pill">♿ Disability Support</div>
+        <div class="category-pill">🧠 Mental Wellness</div>
+        <div class="category-pill">🍱 Food Support</div>
+        <div class="category-pill">🌍 Community Support</div>
+      </div>
+
+      <div class="mt-4">
+        <a href="/help" class="btn btn-primary btn-lg">Find Support Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT SECTION ===================== -->
+  <section class="section">
+    <div class="container">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center;">
+        <div>
+          <h2>What is WellVia?</h2>
+          <p class="mt-2">
+            WellVia is a support-matching platform designed to help individuals and families
+            find the right care and community services quickly and easily.
+          </p>
+          <p class="mt-2">
+            Whether you need affordable healthcare, elder care for a family member,
+            mental wellness support, or just someone to connect with in your community —
+            WellVia helps you find it.
+          </p>
+          <p class="mt-2">
+            Support providers, volunteers, and organisations can also register on WellVia
+            to make their services visible to those who need them most.
+          </p>
+          <a href="/providers" class="btn btn-outline mt-3">Browse All Providers</a>
+        </div>
+        <div style="text-align:center; font-size:7rem; line-height:1;">
+          🏥
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DISCLAIMER ===================== -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="disclaimer">
+        <strong>⚠️ Demo Disclaimer:</strong> All provider information shown on this platform is
+        <strong>sample/demo data</strong> created for demonstration purposes only.
+        It does not represent real organisations. Always verify provider details independently
+        before making any healthcare or support decisions.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div class="footer-brand">WellVia</div>
+    <p>Connecting communities with the care they deserve.</p>
+    <p class="mt-1">
+      <a href="/">Home</a> &nbsp;|&nbsp;
+      <a href="/help">I Need Help</a> &nbsp;|&nbsp;
+      <a href="/want-help">I Want to Help</a> &nbsp;|&nbsp;
+      <a href="/providers">Providers</a>
+    </p>
+    <p class="mt-2" style="font-size:0.8rem; opacity:0.6;">
+      This is a hackathon demo project. All data is sample data only.
+    </p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
